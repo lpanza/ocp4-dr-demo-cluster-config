@@ -1,0 +1,26 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: test-appset
+spec:
+  generators:
+  - git:
+      directories:
+      - path: '*'
+      repoURL: 'https://github.com/lpanza/ocp4-dr-demo-cluster-config.git'
+      revision: HEAD
+  template:
+    metadata:
+      name: '{{path.basename}}'
+      finalizers: []
+    spec:
+      destination:
+        server: 'https://kubernetes.default.svc'
+      source:
+        repoURL: 'https://github.com/lpanza/ocp4-dr-demo-cluster-config.git'
+        path: '{{path}}'
+        targetRevision: HEAD
+      project: default
+      syncPolicy:
+        automated: {}
