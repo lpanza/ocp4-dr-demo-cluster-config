@@ -5,3 +5,4 @@ namespace: openshift-gitops
 
 resources:
 - applicationSet.yaml
+- app-manifests.yaml
